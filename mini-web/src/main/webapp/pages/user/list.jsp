@@ -10,10 +10,12 @@
 <title><s:property value="%{getText('user.list.title')}"/></title>
 </head>
 <body>
+	<input type="button" value="添加" onclick="showEdit(0);" />
+	<input type="button" value="搜索" onclick="ansyc_search();" />
 	<form action="user_list" method="post" enctype="application/x-www-form-urlencoded">
 		用户名：<input type="text" name="user.userName" value="${user.userName}" />
 		工号：<input type="text" name="user.empNo" value="${user.empNo}" />
-		<input type="submit" value="搜索" />
+		<input type="submit" value="搜索" id="search" />
 	</form>
 	<table border="1"
 		style="border-width: 1px; border-collapse: collapse; border-spacing: 1px; border-color: black;">
@@ -41,7 +43,7 @@
 						<s:if test='%{#user.deleted}'>是</s:if>
 						<s:else>否</s:else>
 					</td>
-					<td><a href="javascript:showEdit(<s:property value="#user.id" />);">编辑</a> | <a href="javascript:void(${id});">删除</a></td>
+					<td><a href="javascript:showEdit(<s:property value="#user.id" />);">编辑</a> | <a href="javascript:del(${id});">删除</a></td>
 				</tr>
 			</s:iterator>
 		</tbody>
@@ -59,6 +61,21 @@
 		showWindow(title, url, 500, 500);
 	}
 
+	function search() {
+		$("#search").click();
+	}
+	
+	function ansyc_search() {
+		$.ajax({
+			url : "user_list_json",
+			type : "POST",
+			success : function(result) {
+				alert(result);
+				alert($.toJSON(result));
+			}
+		});
+	}
+
 	function del(id) {
 		top.showBox();
 		$.ajax({
@@ -67,14 +84,14 @@
 				"id" : id
 			},
 			success : function(result) {
-				alert(result);
-				/*
-				if (!result) {
+				if(result && result.isSuccess)
+				{
+					top.showBox("删除成功", MSG_TYPE.SUCCESS, search);
+				} else if(result) {
+					top.showBox(result.message, MSG_TYPE.ERROR);
+				} else {
 					top.showBox("删除失败", MSG_TYPE.ERROR);
-					return;
 				}
-				top.showBox("删除成功", MSG_TYPE.SUCCESS, refresh);
-				*/
 			}
 		});
 	}

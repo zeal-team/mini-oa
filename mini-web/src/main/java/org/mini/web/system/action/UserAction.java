@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mini.web.action;
+package org.mini.web.system.action;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import com.opensymphony.xwork2.Action;
  *
  */
 public class UserAction extends BaseAction {
-	
+
 	@Resource
 	private UserService userService;
-	
+
 	private List<User> list;
 	private User user;
 	private long id;
@@ -39,15 +39,15 @@ public class UserAction extends BaseAction {
 	/*public void setList(List<User> list) {
 		this.list = list;
 	}*/
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -56,16 +56,16 @@ public class UserAction extends BaseAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public String execute() throws Exception {
 		list = userService.search(null);
-		
+
 		return Action.SUCCESS;
 	}
-	
+
 	public String list() throws Exception {
 		list = userService.search(user);
-		
+
 		return Action.SUCCESS;
 	}
 
@@ -73,7 +73,27 @@ public class UserAction extends BaseAction {
 		if(id != 0) {
 			user = userService.get(id);
 		}
-		
+
 		return Action.SUCCESS;
+	}
+
+	public String delete() throws Exception {
+		userService.delete(id);
+
+		setIsSuccess(true);
+
+		return Action.INPUT;
+	}
+
+	public String save() throws Exception {
+		if(user.getId() != 0) {
+			userService.update(user);
+		} else {
+			userService.insert(user);
+		}
+
+		setIsSuccess(true);
+
+		return Action.INPUT;
 	}
 }

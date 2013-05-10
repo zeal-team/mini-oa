@@ -19,7 +19,7 @@ import org.mini.model.IdEntity;
  * 
  */
 @Entity
-@Table(name="mini_sys_user_info")
+@Table(name="sys_user_info")
 public class User extends IdEntity implements Serializable {
 
 	/**
