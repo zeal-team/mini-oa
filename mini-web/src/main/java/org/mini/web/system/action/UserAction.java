@@ -59,12 +59,16 @@ public class UserAction extends BaseAction {
 
 	public String execute() throws Exception {
 		list = userService.search(null);
+		
+		setIsSuccess(true);
 
 		return Action.SUCCESS;
 	}
 
 	public String list() throws Exception {
 		list = userService.search(user);
+		
+		setIsSuccess(true);
 
 		return Action.SUCCESS;
 	}
@@ -73,6 +77,8 @@ public class UserAction extends BaseAction {
 		if(id != 0) {
 			user = userService.get(id);
 		}
+		
+		setIsSuccess(true);
 
 		return Action.SUCCESS;
 	}
