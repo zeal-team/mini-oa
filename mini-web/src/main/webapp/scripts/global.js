@@ -1,5 +1,6 @@
 ﻿var BOX_BORDER_WIDTH = 10;
 var BOX_BORDER_HEIGHT = 38;
+var PROJECT_NAME = "/mini-web";
 
 var MSG_TYPE = {
     "SUCCESS": 1,
@@ -51,7 +52,7 @@ function showBox(msg, msgType, onUnblockFunc) {
             html += '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
             html += '   <tr>';
             html += '       <td style="vertical-align:top;text-align:left;" width="55">';
-            html += '           <img src="/images/messagebox/prompt1.gif" border="0" />';
+            html += '           <img src="' + PROJECT_NAME + '/images/messagebox/prompt1.gif" border="0" />';
             html += '       </td>';
             html += '       <td style="vertical-align:center;text-align:left;color:#505050">';
             html += '           ' + msg;
@@ -64,7 +65,7 @@ function showBox(msg, msgType, onUnblockFunc) {
             html += '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
             html += '   <tr>';
             html += '       <td style="vertical-align:top;text-align:left;" width="55">';
-            html += '           <img src="/images/messagebox/error.gif" border="0" />';
+            html += '           <img src="' + PROJECT_NAME + '/images/messagebox/error.gif" border="0" />';
             html += '       </td>';
             html += '       <td style="vertical-align:center;text-align:left;color:#505050">';
             html += '           ' + msg;
@@ -77,7 +78,7 @@ function showBox(msg, msgType, onUnblockFunc) {
             html += '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
             html += '   <tr>';
             html += '       <td style="vertical-align:top;text-align:left;" width="55">';
-            html += '           <img src="/images/messagebox/prompt_10.gif" border="0" />';
+            html += '           <img src="' + PROJECT_NAME + '/images/messagebox/prompt_10.gif" border="0" />';
             html += '       </td>';
             html += '       <td style="vertical-align:center;text-align:left;color:#505050">';
             html += '           ' + msg;
@@ -90,7 +91,7 @@ function showBox(msg, msgType, onUnblockFunc) {
             html += '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
             html += '   <tr>';
             html += '       <td style="vertical-align:top;text-align:left;" width="55">';
-            html += '           <img src="/images/messagebox/loading.gif" border="0" />';
+            html += '           <img src="' + PROJECT_NAME + '/images/messagebox/loading.gif" border="0" />';
             html += '       </td>';
             html += '       <td style="vertical-align:center;text-align:left;color:#505050">';
             html += '           ' + msg;
@@ -122,12 +123,16 @@ function closeWindow() {
     $.colorbox.close();
 }
 
-function getInput(panelId) {
+function getInput(panelId, isPanel) {
     var input = {};
     $("#" + panelId).find("input[id], textarea[id], select[id]").each(function () {
         var itemType = $(this).attr("type");
         if (itemType == "text" || itemType == "hidden" || itemType == "password" || itemType == "select" || itemType == "select-one" || itemType == "textarea") {
-            input[$(this).attr("key") || $(this).attr("name") || $(this).attr("id")] = $(this).val();
+            var key = $(this).attr("key") || $(this).attr("name") || $(this).attr("id");
+        	if(isPanel) {
+        		key = panelId +"." + key;
+            }
+        	input[key] = $(this).val();
         }
         else if (itemType == "radio" || itemType == "checkbox") {
             var selectValue = "";
@@ -140,13 +145,25 @@ function getInput(panelId) {
                 if (selectValue) {
                     selectValue = selectValue.slice(0, -1);
                 }
-                input[$(this).attr("key") || $(this).attr("name") || $(this).attr("id")] = selectValue;
+                var key = $(this).attr("key") || $(this).attr("name") || $(this).attr("id");
+            	if(isPanel) {
+            		key = panelId +"." + key;
+                }
+            	input[key] = selectValue;
             } else {
-                if (j(this).attr("checked")) {
-                    input[$(this).attr("key") || $(this).attr("name") || $(this).attr("id")] = $(this).attr("value");
+                if ($(this).attr("checked")) {
+                	var key = $(this).attr("key") || $(this).attr("name") || $(this).attr("id");
+                	if(isPanel) {
+                		key = panelId +"." + key;
+                    }
+                	input[key] = $(this).attr("value");
                 }
                 else {
-                    input[$(this).attr("key") || $(this).attr("name") || $(this).attr("id")] = "";
+                	var key = $(this).attr("key") || $(this).attr("name") || $(this).attr("id");
+                	if(isPanel) {
+                		key = panelId +"." + key;
+                    }
+                	input[key] = "";
                 }
             }
         }
