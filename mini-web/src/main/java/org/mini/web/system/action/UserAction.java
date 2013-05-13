@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.mini.common.model.Pager;
 import org.mini.framework.action.BaseAction;
 import org.mini.model.system.User;
 import org.mini.service.UserService;
@@ -23,6 +24,7 @@ public class UserAction extends BaseAction {
 	private UserService userService;
 
 	private List<User> list;
+	private Pager pager;
 	private User user;
 	private long id;
 
@@ -31,6 +33,10 @@ public class UserAction extends BaseAction {
 	 */
 	public List<User> getList() {
 		return list;
+	}
+	
+	public Pager getPager() {
+		return pager;
 	}
 
 	/**
@@ -60,6 +66,12 @@ public class UserAction extends BaseAction {
 	public String execute() throws Exception {
 		list = userService.search(null);
 		
+		if(pager == null) {
+			pager = new Pager();
+		}
+		
+		pager.setCount(list.size());
+		
 		setIsSuccess(true);
 
 		return Action.SUCCESS;
@@ -67,6 +79,12 @@ public class UserAction extends BaseAction {
 
 	public String list() throws Exception {
 		list = userService.search(user);
+		
+		if(pager == null) {
+			pager = new Pager();
+		}
+		
+		pager.setCount(list.size());
 		
 		setIsSuccess(true);
 

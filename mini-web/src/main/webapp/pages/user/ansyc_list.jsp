@@ -64,4 +64,34 @@
 			}
 		});
 	}
+	
+	$(function(){
+		$("#list").jqGrid({
+			url:'user_list_json',  //请求数据的url地址
+			datatype: "json",  //请求的数据类型
+		   	colNames:['名称','工号','密码','创建日期','操作'], //数据列名称（数组）
+		   	colModel:[ //数据列各参数信息设置
+		   		{name:'userName',index:'userName', editable:true, width:80,align:'center', title:false},
+		   		{name:'empNo',index:'empNo', width:180, title:false},
+		   		{name:'password',index:'password', width:120,hidden:true},
+				{name:'createTime',index:'createTime', width:120}
+		   	],
+		   	rowNum:10, //每页显示记录数
+		   	rowList:[10,20,30], //分页选项，可以下拉选择每页显示记录数
+		   	pager: '#pager',  //表格数据关联的分页条，html元素
+			autowidth: true, //自动匹配宽度
+			height:275,   //设置高度
+			gridview:true, //加速显示
+		    viewrecords: true,  //显示总记录数
+			multiselect: true,  //可多选，出现多选框
+			multiselectWidth: 25, //设置多选列宽度
+			sortable:false,  //可以排序
+			//sortname: 'id',  //排序字段名
+		    //sortorder: "desc", //排序方式：倒序，本例中设置默认按id倒序排序
+			loadComplete:function(data){ //完成服务器请求后，回调函数
+				alert(data);
+				alert($.toJSON(data));
+			}
+		 });
+	});
 </script>
