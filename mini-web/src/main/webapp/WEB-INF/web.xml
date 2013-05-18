@@ -129,11 +129,12 @@
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 
+   <!-- java web services设置 -->
 	<!-- <servlet> <servlet-name>CXFServlet</servlet-name> <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> 
 		</servlet> <servlet-mapping> <servlet-name>CXFServlet</servlet-name> <url-pattern>/services/*</url-pattern> 
 		</servlet-mapping> -->
 
-	<!-- 禁止直接浏览的目录设置，WEB-INF就是这样的目录 -->
+	<!-- 禁止直接浏览的目录设置，WEB-INF就是这样的目录，我这样设置一是为了大家扩展容易，二是使得web-inf目录下的文件尽可能少，干净  -->
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>PlanEap</web-resource-name>
