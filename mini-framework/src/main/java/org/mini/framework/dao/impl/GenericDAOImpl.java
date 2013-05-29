@@ -20,6 +20,9 @@ public abstract class GenericDAOImpl<T> extends HibernateGenericDaoImpl<T> {
 	 */
 	
 	protected Object getGenericSession() {
-		return (Object)super.getSession();
+		if(super.getSession() != null)
+			super.getSession();
+		
+		return null;
 	}
 }
