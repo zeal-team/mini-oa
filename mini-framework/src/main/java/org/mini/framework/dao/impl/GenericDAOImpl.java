@@ -18,5 +18,8 @@ public abstract class GenericDAOImpl<T> extends HibernateGenericDaoImpl<T> {
 	 * //t.rollback(); } finally { //t = null; //session.close(); } return list;
 	 * }
 	 */
-
+	
+	protected Object getGenericSession() {
+		return (Object)super.getSession();
+	}
 }
