@@ -25,7 +25,7 @@
 	</bean>
 
 	<!-- C3P0 数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${hibernate.connection.driver_class}" />
 		<property name="jdbcUrl" value="${hibernate.connection.url}" />
 		<property name="properties">
