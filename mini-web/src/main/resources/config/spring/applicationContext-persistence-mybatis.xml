@@ -16,12 +16,12 @@
 	<context:property-placeholder
 		location="classpath:config/mybatis/mybatis.properties" />
 		
-	<!-- 配置dbcp数据源 -->
+	<!-- 配置c3p0数据源 连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="${mybatis.connection.driver_class}" />
-		<property name="url" value="${mybatis.connection.url}" />
-		<property name="username" value="${mybatis.connection.username}" />
+		<property name="driverClass" value="${mybatis.connection.driver_class}" />
+		<property name="jdbcUrl" value="${mybatis.connection.url}" />
+		<property name="user" value="${mybatis.connection.username}" />
 		<property name="password" value="${mybatis.connection.password}" />
 	</bean>
 

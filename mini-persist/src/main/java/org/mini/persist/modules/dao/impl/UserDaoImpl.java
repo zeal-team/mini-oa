@@ -5,6 +5,7 @@ package org.mini.persist.modules.dao.impl;
 
 import java.util.List;
 
+import org.mini.common.config.Config;
 import org.mini.framework.dao.impl.GenericDAOImpl;
 import org.mini.model.system.User;
 import org.mini.persist.modules.dao.UserDao;
@@ -34,10 +35,14 @@ public class UserDaoImpl extends GenericDAOImpl<User> implements UserDao {
 	public List<User> search(User user) throws Exception {
 		// TODO Auto-generated method stub
 		//return super.queryAll(null);
-		if (user == null) {
-			return super.queryAll(null);
+		if(Config.IS_HIBERNATE) {
+			if (user == null) {
+				return super.queryAll(null);
+			}
+			return super.queryAll(QUERY_USER, user);
+		} else {
+			return super.queryAll(QUERY_USER, user);
 		}
-		return super.queryAll(QUERY_USER, user);
 	}
 
 	@Override

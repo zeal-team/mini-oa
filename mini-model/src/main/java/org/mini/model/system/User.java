@@ -37,10 +37,10 @@ public class User extends IdEntity implements Serializable {
 	private String password;
 	
 	@Column(name = "valid_flag")
-	private boolean valid;
+	private Boolean valid;
 	
 	@Column(name = "del_flag")
-	private boolean deleted;
+	private Boolean deleted;
 
 	@Column(name = "create_time")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -94,28 +94,28 @@ public class User extends IdEntity implements Serializable {
 	/**
 	 * @return the valid
 	 */
-	public boolean isValid() {
+	public Boolean isValid() {
 		return valid;
 	}
 
 	/**
 	 * @param valid the valid to set
 	 */
-	public void setValid(boolean valid) {
+	public void setValid(Boolean valid) {
 		this.valid = valid;
 	}
 
 	/**
 	 * @return the deleted
 	 */
-	public boolean isDeleted() {
+	public Boolean isDeleted() {
 		return deleted;
 	}
 
 	/**
 	 * @param deleted the deleted to set
 	 */
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
 

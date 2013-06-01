@@ -15,12 +15,12 @@
 	<import resource="config/spring/applicationContext-cxf.xml" />
 
 	<!-- Hibernate 持久化配置管理 -->
+	<!--
 	<import resource="config/spring/applicationContext-persistence-hibernate.xml" />
+	-->
 	
 	<!-- Mybatis 持久化配置管理 -->
-	<!--  
 	<import resource="config/spring/applicationContext-persistence-mybatis.xml" />
-	-->
 	
 	<!-- kaptcha 验证码配置管理 -->
 	<import resource="config/spring/applicationContext-kaptcha.xml" />

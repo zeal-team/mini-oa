@@ -18,7 +18,7 @@ import org.mybatis.spring.SqlSessionTemplate;
  * @author Administrator
  *
  */
-public class MyBatisGenericDaoImpl<T> implements GenericDao<T> {
+public abstract class MyBatisGenericDaoImpl<T> implements GenericDao<T> {
 	protected Class<T> entityClass;
 	
 	@SuppressWarnings("unchecked")

@@ -1,0 +1,78 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mini.model.system">
+	
+	<resultMap type="user" id="userResult">
+		<result property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+		<result property="userName" column="user_name" />
+		<result property="empNo" column="emp_no" />
+		<result property="password" column="password" />
+		<result property="valid" column="valid_flag" javaType="Boolean" jdbcType="CHAR" />
+		<result property="deleted" column="del_flag" javaType="Boolean" jdbcType="CHAR" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		<result property="email" column="e_mail" />
+	</resultMap>
+
+	<!--
+	<select id="selectAllManageUser" resultMap="userResult">
+		select * from sys_user_info
+ 	</select>
+
+	<select id="findManageUserById" parameterType="int" resultMap="userResult">
+		select * from sys_user_info where id=#{id}
+ 	</select>
+ 	-->
+ 	
+	<select id="queryUer" parameterType="user" resultMap="userResult">
+		select * from sys_user_info
+		<where>
+			<if test="userName != null">
+		        user_name like CONCAT('%',#{userName},'%')
+		    </if>
+		    <if test="userName != null">
+		        and emp_no like CONCAT('%',#{empNo},'%')
+		    </if>
+		</where>
+ 	</select>
+
+	<!--
+	<insert id="insertManageUser" parameterType="manageUser">
+	 	insert into sys_user_info(user_name,pass_word
+	 	<if test="sex != null">,sex</if>
+	 	<if test="brithday != null">,brithday</if>
+	 	<if test="email != null">,e_mail</if>
+	 	) values(#{userName},#{password}
+	 	<if test="sex != null">,#{sex}</if>
+	 	<if test="brithday != null">,#{brithday}</if>
+	 	<if test="email != null">,#{email}</if>
+	 	)
+ 	</insert>
+
+	<update id="updateManageUser" parameterType="manageUser">
+		update manage_user 
+		<set>
+		    <if test="userName != null">
+		        user_name=#{userName},
+		    </if>
+		    <if test="password != null">
+		        pass_word=#{password},
+		    </if>
+		    <if test="sex != null">
+		        sex=#{sex},
+		    </if>
+		    <if test="brithday != null">
+		        brithday=#{brithday},
+		    </if>
+		    <if test="email != null">
+		        e_mail=#{email},
+		    </if>
+		</set>
+		where id=#{id}
+ 	</update>
+ 	
+	<delete id="deleteManageUser" parameterType="int">
+		delete from sys_user_info where id=#{id}
+	</delete>
+	-->
+
+</mapper>

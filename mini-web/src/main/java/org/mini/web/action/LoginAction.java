@@ -1,7 +1,5 @@
 package org.mini.web.action;
 
-import javax.annotation.Resource;
-
 import org.mini.framework.action.BaseAction;
 
 public class LoginAction extends BaseAction {

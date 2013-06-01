@@ -20,9 +20,9 @@
 		<setting name="defaultStatementTimeout" value="25000" />  
     </settings>
     <typeAliases>
-        <typeAlias alias="demo" type="org.mini.model.Demo" />
+        <typeAlias alias="user" type="org.mini.model.system.User" />
     </typeAliases>
     <mappers>
-        <mapper resource="config/entities/Demo.xml" />
+        <mapper resource="config/entities/User.xml" />
     </mappers>
 </configuration>
