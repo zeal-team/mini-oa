@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mini.persist.modules.dao;
+package org.mini.persist.system.dao;
 
 import java.util.List;
 

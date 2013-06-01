@@ -1,14 +1,14 @@
 /**
  * 
  */
-package org.mini.persist.modules.dao.impl;
+package org.mini.persist.system.dao.impl;
 
 import java.util.List;
 
 import org.mini.common.config.Config;
 import org.mini.framework.dao.impl.GenericDAOImpl;
 import org.mini.model.system.User;
-import org.mini.persist.modules.dao.UserDao;
+import org.mini.persist.system.dao.UserDao;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.mini.model.system.User;
-import org.mini.persist.modules.dao.UserDao;
+import org.mini.persist.system.dao.UserDao;
 import org.mini.service.UserService;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;

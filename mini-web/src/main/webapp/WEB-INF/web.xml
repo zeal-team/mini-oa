@@ -50,6 +50,7 @@
 	</listener>
 
 	<!-- OpenSessionInView Filter 这个过滤器是个好东西，有了它，我们在使用Hibernate延迟加载的时候，就不会再为因Session被关闭，导致延迟加载数据异常而头痛了。 -->
+	<!-- 如果使用mybatis或者jdbc等其他的连接资源库，这个就必须去掉。 -->
 	<!--
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
