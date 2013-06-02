@@ -228,58 +228,6 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 		String hql = "from " + entityClass.getSimpleName();
 		return queryForList(hql, null);
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <P extends Object> List<T> queryAll(String statement, P p, Pager pager, List<FieldColumn> parameters) throws Exception {
-		Query query  = null;
-		
-		if (!StringUtil.isNullOrEmpty(statement) && parameters != null
-				&& parameters.size() > 0 && p != null) {
-			query = getSession().getNamedQuery(statement);
-
-			for (FieldColumn parameter : parameters) {
-				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(p);
-
-				if (o instanceof List<?>)
-					query.setParameterList(parameter.getParameterName(),
-							((List<?>) o).toArray());
-				else
-					query.setParameter(parameter.getParameterName(), o);
-			}
-		} else if (!StringUtil.isNullOrEmpty(statement)) {
-			query = getSession().getNamedQuery(statement);
-		} else {
-			String hql = "from " + entityClass.getSimpleName();
-			
-			query = getSession().createQuery(hql);
-		}
-		
-		if(pager != null) {
-			Integer count = (Integer)query.uniqueResult();
-			
-			pager.setCount(count == null ? 0 : count.intValue());
-			
-			int index = pager.getIndex();
-			int totalPage = pager.getTotalPage();
-			
-			if(index < 1) {
-				pager.setIndex(1);
-			} else if(index > totalPage) {
-				pager.setIndex(totalPage);
-			}
-			
-			int firstResult = pager.getSize() * (pager.getIndex() - 1);
-			
-			return (List<T>) query.setFirstResult(firstResult).setMaxResults(pager.getSize()).list();
-		}
-
-		return (List<T>) query.list();
-	}
 
 	private List<FieldColumn> getFieldColumn(String statement) {
 		if (columnParametersCache != null) {
@@ -338,9 +286,63 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 	public T query(String statement, T t) throws Exception {
 		// TODO Auto-generated method stub
 		List<FieldColumn> filedColumn = getFieldColumn(statement);
-		//System.out.println("读取了filed数据");
+		// System.out.println("读取了filed数据");
 
 		return query(statement, t, filedColumn);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <P extends Object> List<T> queryAll(String statement, P p,
+			Pager pager, List<FieldColumn> parameters) throws Exception {
+		Query query = null;
+
+		if (!StringUtil.isNullOrEmpty(statement) && parameters != null
+				&& parameters.size() > 0 && p != null) {
+			query = getSession().getNamedQuery(statement);
+
+			for (FieldColumn parameter : parameters) {
+				Field f = entityClass
+						.getDeclaredField(parameter.getFieldName());
+				Method m = (Method) entityClass.getMethod("get"
+						+ StringUtil.firstLetterToUpper(f.getName()));
+				Object o = m.invoke(p);
+
+				if (o instanceof List<?>)
+					query.setParameterList(parameter.getParameterName(),
+							((List<?>) o).toArray());
+				else
+					query.setParameter(parameter.getParameterName(), o);
+			}
+		} else if (!StringUtil.isNullOrEmpty(statement)) {
+			query = getSession().getNamedQuery(statement);
+		} else {
+			String hql = "from " + entityClass.getSimpleName();
+
+			query = getSession().createQuery(hql);
+		}
+
+		if (pager != null) {
+			Integer count = (Integer) query.uniqueResult();
+
+			pager.setCount(count == null ? 0 : count.intValue());
+
+			int index = pager.getIndex();
+			int totalPage = pager.getTotalPage();
+
+			if (index < 1) {
+				pager.setIndex(1);
+			} else if (index > totalPage) {
+				pager.setIndex(totalPage);
+			}
+
+			int firstResult = pager.getSize() * (pager.getIndex() - 1);
+
+			return (List<T>) query.setFirstResult(firstResult)
+					.setMaxResults(pager.getSize()).list();
+		}
+
+		return (List<T>) query.list();
 	}
 
 	@Override
@@ -348,9 +350,10 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 		// TODO Auto-generated method stub
 		return queryAll(statement, p, null);
 	}
-	
+
 	@Override
-	public <P> List<T> queryAll(String statement, P p, Pager pager) throws Exception {
+	public <P> List<T> queryAll(String statement, P p, Pager pager)
+			throws Exception {
 		// TODO Auto-generated method stub
 		List<FieldColumn> filedColumn = getFieldColumn(statement);
 

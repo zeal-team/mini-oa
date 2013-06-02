@@ -28,8 +28,6 @@ public interface GenericDao<T> {
   
     List<T> queryAll(String statement) throws Exception;
     
-    <P extends Object> List<T> queryAll(String statement, P p, Pager pager, List<FieldColumn> parameters) throws Exception;
-    
     void insert(String statement, T t) throws Exception;
 	  
     void delete(String statement, T t) throws Exception;
@@ -37,6 +35,8 @@ public interface GenericDao<T> {
     void update(String statement, T t) throws Exception;
     
     T query(String statement, T t) throws Exception;
+    
+    <P extends Object> List<T> queryAll(String statement, P p, Pager pager, List<FieldColumn> parameters) throws Exception;
     
     <P extends Object> List<T> queryAll(String statement, P p) throws Exception;
     
