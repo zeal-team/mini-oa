@@ -1,6 +1,6 @@
 package org.mini.framework.dao.impl;
 
-public abstract class GenericDAOImpl<T> extends MyBatisGenericDaoImpl<T> {
+public abstract class GenericDAOImpl<T> extends HibernateGenericDaoImpl<T> {
 
 	
 	/*

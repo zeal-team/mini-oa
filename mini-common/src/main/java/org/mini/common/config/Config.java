@@ -8,5 +8,5 @@ package org.mini.common.config;
  *
  */
 public class Config {
-	public static final boolean IS_HIBERNATE = false;
+	public static final boolean IS_HIBERNATE = true;
 }
