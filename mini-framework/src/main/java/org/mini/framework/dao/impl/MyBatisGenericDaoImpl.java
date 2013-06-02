@@ -81,13 +81,6 @@ public abstract class MyBatisGenericDaoImpl<T> implements GenericDao<T> {
 	}
 
 	@Override
-	public <P> List<T> queryAll(String statement, P p,
-			List<FieldColumn> parameters) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList(statement, p);
-	}
-
-	@Override
 	public void insert(String statement, T t) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.insert(statement, t);

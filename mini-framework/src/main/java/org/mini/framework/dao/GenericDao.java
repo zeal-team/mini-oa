@@ -6,6 +6,7 @@ package org.mini.framework.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.mini.common.model.Pager;
 import org.mini.framework.bean.FieldColumn;
 
 /**
@@ -27,7 +28,7 @@ public interface GenericDao<T> {
   
     List<T> queryAll(String statement) throws Exception;
     
-    <P extends Object> List<T> queryAll(String statement, P p, List<FieldColumn> parameters) throws Exception;
+    <P extends Object> List<T> queryAll(String statement, P p, Pager pager, List<FieldColumn> parameters) throws Exception;
     
     void insert(String statement, T t) throws Exception;
 	  
@@ -38,4 +39,6 @@ public interface GenericDao<T> {
     T query(String statement, T t) throws Exception;
     
     <P extends Object> List<T> queryAll(String statement, P p) throws Exception;
+    
+    <P extends Object> List<T> queryAll(String statement, P p, Pager pager) throws Exception;
 }

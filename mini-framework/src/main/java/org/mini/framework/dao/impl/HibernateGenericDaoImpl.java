@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.mini.common.model.Pager;
 import org.mini.common.utils.StringUtil;
 import org.mini.framework.bean.ColumnParameter;
 import org.mini.framework.bean.FieldColumn;
@@ -227,14 +228,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 		String hql = "from " + entityClass.getSimpleName();
 		return queryForList(hql, null);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <P extends Object> List<T> queryAll(String statement, P p,
-			List<FieldColumn> parameters) throws Exception {
+	public <P extends Object> List<T> queryAll(String statement, P p, Pager pager, List<FieldColumn> parameters) throws Exception {
+		Query query  = null;
+		
 		if (!StringUtil.isNullOrEmpty(statement) && parameters != null
 				&& parameters.size() > 0 && p != null) {
-			Query query = getSession().getNamedQuery(statement);
+			query = getSession().getNamedQuery(statement);
 
 			for (FieldColumn parameter : parameters) {
 				Field f = entityClass
@@ -249,15 +251,34 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 				else
 					query.setParameter(parameter.getParameterName(), o);
 			}
-
-			return (List<T>) query.list();
 		} else if (!StringUtil.isNullOrEmpty(statement)) {
-			Query query = getSession().getNamedQuery(statement);
-			return (List<T>) query.list();
+			query = getSession().getNamedQuery(statement);
 		} else {
 			String hql = "from " + entityClass.getSimpleName();
-			return queryForList(hql, null);
+			
+			query = getSession().createQuery(hql);
 		}
+		
+		if(pager != null) {
+			Integer count = (Integer)query.uniqueResult();
+			
+			pager.setCount(count == null ? 0 : count.intValue());
+			
+			int index = pager.getIndex();
+			int totalPage = pager.getTotalPage();
+			
+			if(index < 1) {
+				pager.setIndex(1);
+			} else if(index > totalPage) {
+				pager.setIndex(totalPage);
+			}
+			
+			int firstResult = pager.getSize() * (pager.getIndex() - 1);
+			
+			return (List<T>) query.setFirstResult(firstResult).setMaxResults(pager.getSize()).list();
+		}
+
+		return (List<T>) query.list();
 	}
 
 	private List<FieldColumn> getFieldColumn(String statement) {
@@ -325,9 +346,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 	@Override
 	public <P> List<T> queryAll(String statement, P p) throws Exception {
 		// TODO Auto-generated method stub
+		return queryAll(statement, p, null);
+	}
+	
+	@Override
+	public <P> List<T> queryAll(String statement, P p, Pager pager) throws Exception {
+		// TODO Auto-generated method stub
 		List<FieldColumn> filedColumn = getFieldColumn(statement);
 
-		return queryAll(statement, p, filedColumn);
+		return queryAll(statement, p, pager, filedColumn);
 	}
 
 }
