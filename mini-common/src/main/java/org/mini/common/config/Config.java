@@ -9,4 +9,6 @@ package org.mini.common.config;
  */
 public class Config {
 	public static final boolean IS_HIBERNATE = true;
+	
+	public static final String MYBATIS_RECORD_COUNT = "_COUNT";
 }
