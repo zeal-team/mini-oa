@@ -5,7 +5,6 @@ package org.mini.framework.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -100,10 +99,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 
 			for (FieldColumn parameter : parameters) {
 				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(t);
+						.getField(parameter.getFieldName());
+				
+				f.setAccessible(true);
+				
+				//Method m = (Method) entityClass.getMethod("get"
+				//		+ StringUtil.firstLetterToUpper(f.getName()));
+				//Object o = m.invoke(t);
+				
+				Object o = f.get(t);
 
 				if (o instanceof List<?>)
 					query.setParameterList(parameter.getParameterName(),
@@ -130,10 +134,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 
 			for (FieldColumn parameter : parameters) {
 				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(t);
+						.getField(parameter.getFieldName());
+				
+				f.setAccessible(true);
+				
+				//Method m = (Method) entityClass.getMethod("get"
+				//		+ StringUtil.firstLetterToUpper(f.getName()));
+				//Object o = m.invoke(t);
+				
+				Object o = f.get(t);
 
 				if (o instanceof List<?>)
 					query.setParameterList(parameter.getParameterName(),
@@ -165,10 +174,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 
 			for (FieldColumn parameter : parameters) {
 				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(t);
+						.getField(parameter.getFieldName());
+				
+				f.setAccessible(true);
+				
+				//Method m = (Method) entityClass.getMethod("get"
+				//		+ StringUtil.firstLetterToUpper(f.getName()));
+				//Object o = m.invoke(t);
+				
+				Object o = f.get(t);
 
 				if (o instanceof List<?>)
 					query.setParameterList(parameter.getParameterName(),
@@ -202,10 +216,15 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 
 			for (FieldColumn parameter : parameters) {
 				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(t);
+						.getField(parameter.getFieldName());
+				
+				f.setAccessible(true);
+				
+				//Method m = (Method) entityClass.getMethod("get"
+				//		+ StringUtil.firstLetterToUpper(f.getName()));
+				//Object o = m.invoke(t);
+				
+				Object o = f.get(t);
 
 				if (o instanceof List<?>)
 					query.setParameterList(parameter.getParameterName(),
@@ -302,11 +321,16 @@ public abstract class HibernateGenericDaoImpl<T> implements GenericDao<T> {
 			query = getSession().getNamedQuery(statement);
 
 			for (FieldColumn parameter : parameters) {
-				Field f = entityClass
-						.getDeclaredField(parameter.getFieldName());
-				Method m = (Method) entityClass.getMethod("get"
-						+ StringUtil.firstLetterToUpper(f.getName()));
-				Object o = m.invoke(p);
+				Field f = p.getClass()
+						.getField(parameter.getFieldName());
+				
+				f.setAccessible(true);
+				
+				//Method m = (Method) entityClass.getMethod("get"
+				//		+ StringUtil.firstLetterToUpper(f.getName()));
+				//Object o = m.invoke(t);
+				
+				Object o = f.get(p);
 
 				if (o instanceof List<?>)
 					query.setParameterList(parameter.getParameterName(),
