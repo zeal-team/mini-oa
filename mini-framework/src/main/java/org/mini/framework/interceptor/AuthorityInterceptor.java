@@ -11,6 +11,16 @@ public class AuthorityInterceptor extends AbstractInterceptor {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String operateCode;
+
+	public String getOperateCode() {
+		return operateCode;
+	}
+
+	public void setOperateCode(String operateCode) {
+		this.operateCode = operateCode;
+	}
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
