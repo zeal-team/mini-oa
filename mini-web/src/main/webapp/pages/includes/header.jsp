@@ -8,3 +8,4 @@
 <script src="<%=request.getContextPath() %>/scripts/jquery.json-2.3.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/scripts/common.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/scripts/global.js" type="text/javascript"></script>
+<link href="<%=request.getContextPath() %>/css/jqgrid/ui.jqgrid.css" rel="stylesheet" type="text/css" />

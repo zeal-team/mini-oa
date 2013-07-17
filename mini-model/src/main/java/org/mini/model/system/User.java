@@ -19,7 +19,7 @@ import org.mini.model.IdEntity;
  * 
  */
 @Entity
-@Table(name="sys_user_info")
+@Table(name="sys_user")
 public class User extends IdEntity implements Serializable {
 
 	/**
@@ -39,9 +39,6 @@ public class User extends IdEntity implements Serializable {
 	@Column(name = "valid_flag")
 	private Boolean valid;
 	
-	@Column(name = "del_flag")
-	private Boolean deleted;
-
 	@Column(name = "create_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
@@ -103,20 +100,6 @@ public class User extends IdEntity implements Serializable {
 	 */
 	public void setValid(Boolean valid) {
 		this.valid = valid;
-	}
-
-	/**
-	 * @return the deleted
-	 */
-	public Boolean isDeleted() {
-		return deleted;
-	}
-
-	/**
-	 * @param deleted the deleted to set
-	 */
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
 	}
 
 	/**
