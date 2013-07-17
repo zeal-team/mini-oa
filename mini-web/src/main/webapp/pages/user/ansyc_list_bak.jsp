@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="/pages/includes/header.jsp"%>
+
 <%@include file="/pages/includes/struts-tags.jsp"%>
 <%@include file="/pages/includes/jqgrid.jsp"%>
 <title><s:property value="%{getText('user.list.title')}" /></title>
@@ -41,7 +41,7 @@
 	height: 35px;
 }
 
-#list1 {
+#list {
 	border: #990099 solid;
 	height: 250px;
 }
@@ -55,7 +55,7 @@
 <style type="text/css">
 #bg {
 	width: 700px;
-	align: center;
+	align:center;
 }
 
 #bg li.bt {
@@ -67,12 +67,12 @@
 	float: left;
 	margin-left: 1px;
 	margin-bottom: 1px;
-	background: #666;
+	background: #666; 
 	/* background: #999;  */
 }
 
 #bg li {
-	list-style-type: none;
+list-style-type: none;
 	width: 100px;
 	height: 40px;
 	line-height: 20px;
@@ -80,7 +80,8 @@
 	float: left;
 	margin-left: 1px;
 	margin-bottom: 1px;
-	background: #999;
+	background: #999; 
+	 
 }
 </style>
 </head>
@@ -93,18 +94,48 @@
 		<!-- 二级导航 -->
 		<%@include file="../includes/second_nav.jsp"%>
 		<div id="content">
-			<input type="button" value="添加" onclick="showEdit(0);" /> 
-			<input type="button" value="搜索" onclick="ansyc_search();" />
+			<input type="button" value="添加" onclick="showEdit(0);" /> <input
+				type="button" value="搜索" onclick="ansyc_search();" />
 			<div action="user_list" method="post"
 				enctype="application/x-www-form-urlencoded">
 				用户名：<input type="text" name="user.userName" value="${user.userName}" />
 				工号：<input type="text" name="user.empNo" value="${user.empNo}" /> <input
 					type="button" value="搜索" id="ansycsearch" onclick="ansyc_search();" />
 			</div>
-			<div id="list1">
+			<div id="list">
 
-				<table id="list"></table>
-				<div id="pager"></div> 
+
+				<div align="center">
+					<ul id="bg">
+
+						<li class="bt">用户名</li>
+						<li class="bt">密码</li>
+						<li class="bt">添加日期</li>
+						<li class="bt">是否有效</li>
+						<li class="bt">是否删除</li>
+						<li class="bt">操作</li>
+					
+					<tbody>
+						<s:iterator value="list" id="user">
+							
+								<li><s:property value="#user.userName" /></li>
+								<li>${password}</li>
+								<li>${createTime}</li>
+								<li><s:if test='%{#user.valid}'>是</s:if> <s:else>否</s:else>
+								</li>
+								<li><s:if test='%{#user.deleted}'>是</s:if> <s:else>否</s:else>
+								</li>
+								<li><a
+									href="javascript:showEdit(<s:property value="#user.id" />);">编辑</a>
+									| <a href="javascript:del(${id});">删除</a></li>
+								
+						</s:iterator>
+					</tbody>
+</ul>
+				</div>
+
+
+				<div id="pager"></div>
 
 			</div>
 		</div>
@@ -112,10 +143,10 @@
 	<!-- 尾部 -->
 	<%@include file="../includes/footer.jsp"%>
 
+
+
 </body>
 </html>
-
-
 <script type="text/javascript">
 	function showEdit(id) {
 		var title = "新增客户";
@@ -133,11 +164,11 @@
 
 	function ansyc_search() {
 		$.ajax({
-			url : "user_list4",
+			url : "user_list_json",
 			type : "POST",
 			success : function(result) {
-				//alert(result);
-				//alert($.toJSON(result));
+				alert(result);
+				alert($.toJSON(result));
 			}
 		});
 	}
@@ -165,7 +196,7 @@
 		$("#list")
 				.jqGrid(
 						{
-							url : 'user_list4', //请求数据的url地址
+							url : 'user_list_json', //请求数据的url地址
 							datatype : "json", //请求的数据类型
 							colNames : [ '名称', '工号', '密码', '创建日期', '操作' ], //数据列名称（数组）
 							colModel : [ //数据列各参数信息设置
@@ -217,8 +248,8 @@
 								for ( var i = 0; i < length; i++) {
 									var id = ids[i];
 									// 获取id标识所在行的行数据，即是模型数据了
-								//	var model = $(this).jqGrid('getRowData', id);
-									var opt = '<a href="javascript:showEdit('+id+');">编辑</a> | <a href="javascript:del('+id+');">删除</a>';
+									//var model = $(this).jqGrid('getRowData', id);
+									var opt = '<a href="javascript:showEdit(0);">编辑</a> | <a href="javascript:del(0);">删除</a>';
 									$(this).jqGrid('setRowData', ids[i], {
 										"opt" : opt
 									});
@@ -231,9 +262,6 @@
 								records : "pager.count",
 								repeatitems : false
 							}
-						}).trigger("reloadGrid");
-		
+						});
 	});
-	
-	/* $("#list").trigger("reloadGrid"); */
 </script>
