@@ -71,8 +71,8 @@
 			<div id="search">搜索区</div>
 			<div id="list">
 			
-			<table id="list"></table> 
-				<div id="pager"></div>
+			<!-- <table id="list"></table> 
+				<div id="pager"></div> -->
 			
 				<table align="center" border="1">
 					<thead>
