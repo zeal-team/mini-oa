@@ -112,6 +112,33 @@
 	<!-- 尾部 -->
 	<%@include file="../includes/footer.jsp"%>
 
+	<!-- 头部 -->
+	<%@include file="../includes/head.jsp"%>
+	<div id="mainbox">
+		<!-- 一级导航 -->
+		<%@include file="../includes/primary_nav.jsp"%>
+		<!-- 二级导航 -->
+		<%@include file="../includes/second_nav.jsp"%>
+		<div id="content">
+			<input type="button" value="添加" onclick="showEdit(0);" /> 
+			<input type="button" value="搜索" onclick="ansyc_search();" />
+			<div action="user_list" method="post"
+				enctype="application/x-www-form-urlencoded">
+				用户名：<input type="text" name="user.userName" value="${user.userName}" />
+				工号：<input type="text" name="user.empNo" value="${user.empNo}" /> <input
+					type="button" value="搜索" id="ansycsearch" onclick="ansyc_search();" />
+			</div>
+			<div id="list1">
+
+				<table id="list"></table>
+				<div id="pager"></div> 
+
+			</div>
+		</div>
+	</div>
+	<!-- 尾部 -->
+	<%@include file="../includes/footer.jsp"%>
+
 </body>
 </html>
 
