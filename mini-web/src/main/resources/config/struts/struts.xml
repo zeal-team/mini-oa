@@ -129,7 +129,7 @@
 			<result name="input" type="json">
 				<param name="ignoreHierarchy">false</param>
 				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
-				<param name="excludeProperties">roleList,role,id</param>
+				<param name="excludeProperties">list,role,id</param>
 			</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="exception" />
@@ -140,7 +140,7 @@
 			<result name="input" type="json">
 				<param name="ignoreHierarchy">false</param>
 				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
-				<param name="excludeProperties">roleList,id,role</param>
+				<param name="excludeProperties">list,id,role</param>
 			</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="exception" />

@@ -8,7 +8,7 @@
 <%@include file="/pages/includes/header.jsp"%>
 <%@include file="/pages/includes/struts-tags.jsp"%>
 <%@include file="/pages/includes/jqgrid.jsp"%>
-<title><s:property value="%{getText('role.roleList.title')}" /></title>
+<title><s:property value="%{getText('role.list.title')}" /></title>
 <style type="text/css">
 #header {
 	border: #000000 solid;
@@ -95,7 +95,7 @@
 		<div id="content">
 			<input type="button" value="添加" onclick="showEdit(0);" /> 
 			<input type="button" value="搜索" onclick="ansyc_search();" />
-			<div action="role_list" method="post"
+			<div action="role_list_json" method="post"
 				enctype="application/x-www-form-urlencoded">
 				角色：<input type="text" name="role.roleName" value="${role.roleName}" />
 				<input type="button" value="搜索" id="ansycsearch" onclick="ansyc_search();" />
@@ -132,7 +132,7 @@
 
 	function ansyc_search() {
 		$.ajax({
-			url : "role_list",
+			url : "role_list_json",
 			type : "POST",
 			success : function(result) {
 				//alert(result);
@@ -164,7 +164,7 @@
 		$("#list")
 				.jqGrid(
 						{
-							url : 'role_list', //请求数据的url地址
+							url : 'role_list_json', //请求数据的url地址
 							datatype : "json", //请求的数据类型
 							colNames : [ '角色名称', '详情', '操作' ], //数据列名称（数组）
 							colModel : [ //数据列各参数信息设置

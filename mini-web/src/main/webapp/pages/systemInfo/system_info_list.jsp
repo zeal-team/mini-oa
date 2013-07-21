@@ -95,7 +95,7 @@
 		<div id="content">
 			<input type="button" value="添加" onclick="showEdit(0);" /> 
 			<input type="button" value="搜索" onclick="ansyc_search();" />
-			<div action="system_info_list" method="post"
+			<div action="system_info_list_json" method="post"
 				enctype="application/x-www-form-urlencoded">
 				系统名：<input type="text" name="systemInfo.sysName" value="${systemInfo.sysName}" />
 				url：<input type="text" name="systemInfo.sysUrl" value="${systemInfo.sysUrl}" /> <input
@@ -133,7 +133,7 @@
 
 	function ansyc_search() {
 		$.ajax({
-			url : "system_info_list",
+			url : "system_info_list_json",
 			type : "POST",
 			success : function(result) {
 				//alert(result);
@@ -165,7 +165,7 @@
 		$("#list")
 				.jqGrid(
 						{
-							url : 'system_info_list', //请求数据的url地址
+							url : 'system_info_list_json', //请求数据的url地址
 							datatype : "json", //请求的数据类型
 							colNames : [ '系统名称', 'Url', '详情', '操作' ], //数据列名称（数组）
 							colModel : [ //数据列各参数信息设置

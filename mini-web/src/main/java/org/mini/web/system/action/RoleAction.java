@@ -17,15 +17,19 @@ import com.opensymphony.xwork2.Action;
  */
 public class RoleAction extends BaseAction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2037600227405930362L;
 	@Resource
 	private RoleService roleService; 
-	private List<Role> roleList;
+	private List<Role> list;
 	private Pager pager;
 	private Role role;
 	private long id;
 	
-	public List<Role> getRoleList() {
-		return roleList;
+	public List<Role> getList() {
+		return list;
 	}
 
 	public Pager getPager() {
@@ -41,13 +45,13 @@ public class RoleAction extends BaseAction {
 	}
 
 	public String execute() throws Exception {
-		roleList = roleService.search(null);
+		list = roleService.search(null);
 		
 		if(pager == null) {
 			pager = new Pager();
 		}
 		
-		pager.setCount(roleList.size());
+		pager.setCount(list.size());
 		
 		setIsSuccess(true);
 
@@ -55,13 +59,13 @@ public class RoleAction extends BaseAction {
 	}
 
 	public String list() throws Exception {
-		roleList = roleService.search(role);
+		list = roleService.search(role);
 		
 		if(pager == null) {
 			pager = new Pager();
 		}
 		
-		pager.setCount(roleList.size());
+		pager.setCount(list.size());
 		
 		setIsSuccess(true);
 

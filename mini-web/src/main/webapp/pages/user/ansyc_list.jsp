@@ -95,7 +95,7 @@
 		<div id="content">
 			<input type="button" value="添加" onclick="showEdit(0);" /> 
 			<input type="button" value="搜索" onclick="ansyc_search();" />
-			<div action="user_list4" method="post"
+			<div action="user_list_json" method="post"
 				enctype="application/x-www-form-urlencoded">
 				用户名：<input type="text" name="user.userName" value="${user.userName}" />
 				工号：<input type="text" name="user.empNo" value="${user.empNo}" /> <input
@@ -133,7 +133,7 @@
 
 	function ansyc_search() {
 		$.ajax({
-			url : "user_list4",
+			url : "user_list_json",
 			type : "POST",
 			success : function(result) {
 				//alert(result);
@@ -165,7 +165,7 @@
 		$("#list")
 				.jqGrid(
 						{
-							url : 'user_list4', //请求数据的url地址
+							url : 'user_list_json', //请求数据的url地址
 							datatype : "json", //请求的数据类型
 							colNames : [ '名称', '工号', '密码', '创建日期', '操作' ], //数据列名称（数组）
 							colModel : [ //数据列各参数信息设置
