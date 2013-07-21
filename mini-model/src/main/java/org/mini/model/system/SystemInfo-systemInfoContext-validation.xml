@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.3//EN"
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+	<field name="sysName">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>${getText("sysName.requried")}</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\w{4,25})]]></param>
+			<message>系统名只能是字母和数字，且长度必须在4到25之间</message>
+		</field-validator>
+	</field>
+	<field name="sysUrl">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入Url</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{4,25})]]></param>
+			<message>url只能是数字，且长度必须在4到25之间</message>
+		</field-validator>
+	</field>
+	
+</validators>

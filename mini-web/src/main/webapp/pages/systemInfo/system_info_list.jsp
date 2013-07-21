@@ -8,7 +8,7 @@
 <%@include file="/pages/includes/header.jsp"%>
 <%@include file="/pages/includes/struts-tags.jsp"%>
 <%@include file="/pages/includes/jqgrid.jsp"%>
-<title><s:property value="%{getText('user.list.title')}" /></title>
+<title><s:property value="%{getText('systemInfo.list.title')}" /></title>
 <style type="text/css">
 #header {
 	border: #000000 solid;
@@ -95,10 +95,10 @@
 		<div id="content">
 			<input type="button" value="添加" onclick="showEdit(0);" /> 
 			<input type="button" value="搜索" onclick="ansyc_search();" />
-			<div action="user_list4" method="post"
+			<div action="system_info_list" method="post"
 				enctype="application/x-www-form-urlencoded">
-				用户名：<input type="text" name="user.userName" value="${user.userName}" />
-				工号：<input type="text" name="user.empNo" value="${user.empNo}" /> <input
+				系统名：<input type="text" name="systemInfo.sysName" value="${systemInfo.sysName}" />
+				url：<input type="text" name="systemInfo.sysUrl" value="${systemInfo.sysUrl}" /> <input
 					type="button" value="搜索" id="ansycsearch" onclick="ansyc_search();" />
 			</div>
 			<div id="list1">
@@ -118,10 +118,10 @@
 
 <script type="text/javascript">
 	function showEdit(id) {
-		var title = "新增客户";
-		var url = "user_view";
+		var title = "新增系统信息";
+		var url = "system_info_view";
 		if (id) {
-			title = "编辑客户";
+			title = "编辑系统信息";
 			url = url + "?id=" + id;
 		}
 		showWindow(title, url, 500, 500);
@@ -133,7 +133,7 @@
 
 	function ansyc_search() {
 		$.ajax({
-			url : "user_list4",
+			url : "system_info_list",
 			type : "POST",
 			success : function(result) {
 				//alert(result);
@@ -145,7 +145,7 @@
 	function del(id) {
 		top.showBox();
 		$.ajax({
-			url : "user_delete",
+			url : "system_info_delete",
 			data : {
 				"id" : id
 			},
@@ -165,31 +165,27 @@
 		$("#list")
 				.jqGrid(
 						{
-							url : 'user_list4', //请求数据的url地址
+							url : 'system_info_list', //请求数据的url地址
 							datatype : "json", //请求的数据类型
-							colNames : [ '名称', '工号', '密码', '创建日期', '操作' ], //数据列名称（数组）
+							colNames : [ '系统名称', 'Url', '详情', '操作' ], //数据列名称（数组）
 							colModel : [ //数据列各参数信息设置
 							{
-								name : 'userName',
-								index : 'userName',
+								name : 'sysName',
+								index : 'sysName',
 								editable : true,
 								width : 80,
 								align : 'center',
 								title : false
 							}, {
-								name : 'empNo',
-								index : 'empNo',
+								name : 'sysUrl',
+								index : 'sysUrl',
 								width : 180,
 								title : false
 							}, {
-								name : 'password',
-								index : 'password',
-								width : 120,
+								name : 'sysDesc',
+								index : 'sysDesc',
+								width : 180,
 								hidden : true
-							}, {
-								name : 'createTime',
-								index : 'createTime',
-								width : 120
 							}, {
 								name : 'opt',
 								index : 'opt',

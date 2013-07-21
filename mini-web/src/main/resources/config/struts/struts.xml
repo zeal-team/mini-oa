@@ -3,123 +3,210 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <!-- 开启使用开发模式，详细错误提示 -->
-    <constant name="struts.devMode" value="true" />
-    <!-- 将对象交给spring管理 -->
-    <constant name="struts.objectFactory" value="spring" />
-    <!-- 指定资源编码类型 -->
-    <constant name="struts.i18n.encoding" value="UTF-8" /> 
+	<!-- 开启使用开发模式，详细错误提示 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 将对象交给spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 指定资源编码类型 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<!-- 指定每次请求到达，重新加载资源文件 -->
-    <constant name="struts.i18n.reload" value="false" />
-    <!-- 指定每次配置文件更改后，自动重新加载 -->
-    <constant name="struts.configuration.xml.reload" value="true" />
-    <!-- 国际化资源文件 -->
-    <constant name="struts.custom.i18n.resources" value="config/language/Language" />
-    <!-- 默认后缀名 -->
-    <constant name="struts.action.extension" value=",html,do,action" />
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 指定每次配置文件更改后，自动重新加载 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 国际化资源文件 -->
+	<constant name="struts.custom.i18n.resources" value="config/language/Language" />
+	<!-- 默认后缀名 -->
+	<constant name="struts.action.extension" value=",html,do,action" />
 	<!-- Struts Annotation，设置为注释注入 -->
-    <constant name="actionPackages" value="org.mini.web.action,org.mini.web.**.action" />
-    
-    <!-- 非注解注入配置 -->
-    <package name="default" namespace="/" extends="json-default">
-        <interceptors>
-			<interceptor name="authority" class="org.mini.framework.interceptor.AuthorityInterceptor" />
-			<interceptor name="exception" class="org.mini.framework.interceptor.ExceptionInterceptor" />
-			<!--  
-			<interceptor-stack name="my-stack">
-				<interceptor-ref name="defaultStack" />
-				<interceptor-ref name="mysimple">
-					<param name="name">第一个</param>
-				</interceptor-ref>
-				<interceptor-ref name="second">
-					<param name="name">第二个</param>
-				</interceptor-ref>
-			</interceptor-stack>
-			-->
+	<constant name="actionPackages" value="org.mini.web.action,org.mini.web.**.action" />
+
+	<!-- 非注解注入配置 -->
+	<package name="default" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="authority"
+				class="org.mini.framework.interceptor.AuthorityInterceptor" />
+			<interceptor name="exception"
+				class="org.mini.framework.interceptor.ExceptionInterceptor" />
+			<!-- <interceptor-stack name="my-stack"> <interceptor-ref name="defaultStack" 
+				/> <interceptor-ref name="mysimple"> <param name="name">第一个</param> </interceptor-ref> 
+				<interceptor-ref name="second"> <param name="name">第二个</param> </interceptor-ref> 
+				</interceptor-stack> -->
 		</interceptors>
 
-        <global-results>
-            <result name="login" type="redirectAction">login</result>
-            <result name="error" type="redirectAction">error</result>
+		<global-results>
+			<result name="login" type="redirectAction">login</result>
+			<result name="error" type="redirectAction">error</result>
 		</global-results>
 
-        <!-- 
-        <global-exception-mappings>
-            <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping> 
-        </global-exception-mappings>
-        -->
-        
-        <action name="login" class="org.mini.web.action.LoginAction">  
-            <result name="success">/pages/login/login.jsp</result>
-        </action>
-        
-        <action name="user_list2" class="org.mini.web.system.action.UserAction">  
-            <result name="success">/pages/user/index.jsp</result>
-        </action>
-  
-        <action name="user_list" class="org.mini.web.system.action.UserAction" method="list">  
-            <result name="success">/pages/user/list.jsp</result>
-            <interceptor-ref name="defaultStack" />
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <action name="user_list4" class="org.mini.web.system.action.UserAction" method="list">  
-            <result name="success">/pages/user/ansyc_list.jsp</result>
-            <interceptor-ref name="defaultStack" />
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <action name="user_list_json" class="org.mini.web.system.action.UserAction">  
-            <result name="success" type="json">
-            	<param name="ignoreHierarchy">false</param>
-                <param name="excludeProperties">user,id,actionErrors,fieldErrors,actionMessages,ajax,errorMessages,locale,texts</param>
-            </result>
-            <interceptor-ref name="defaultStack" /> 
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <action name="user_view" class="org.mini.web.system.action.UserAction" method="view">  
-            <result name="success">/pages/user/view.jsp</result>
-            <interceptor-ref name="defaultStack" /> 
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <action name="user_delete" class="org.mini.web.system.action.UserAction" method="delete">  
-            <result name="input" type="json">
-            	<param name="ignoreHierarchy">false</param>
-                <param name="includeProperties">${actionErrors},${fieldErrors}</param>
-                <param name="excludeProperties">list,user,id</param>
-            </result>
-            <interceptor-ref name="defaultStack" /> 
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <action name="user_save" class="org.mini.web.system.action.UserAction" method="save">  
-            <result name="input" type="json">
-            	<param name="ignoreHierarchy">false</param>
-                <param name="includeProperties">${actionErrors},${fieldErrors}</param>
-                <param name="excludeProperties">list,id,user</param>
-            </result>
-            <interceptor-ref name="defaultStack" /> 
-            <interceptor-ref name="exception" />
-        </action>
-        
-        <!-- <action name="user_*" class="org.mini.web.action.UserAction" method="{1}">  
-            <result name="success">/pages/user/{1}.jsp</result>
-            <interceptor-ref name="defaultStack" /> 
-            <interceptor-ref name="exception" />
-        </action> -->
-        
-        <action name="do_login" class="org.mini.web.action.LoginAction" method="login">
-            <result name="input" type="json">
-                <param name="ignoreHierarchy">false</param>
-                <param name="includeProperties">${actionErrors},${fieldErrors}</param>
-                <param name="excludeParams">${username},${password}</param>
-            </result>
-        </action>
-        
-        <action name="*" class="org.mini.web.action.ErrorAction">  
-            <result>/pages/demo/index.jsp</result>
-        </action>
-    </package>
+		<!-- <global-exception-mappings> <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping> 
+			</global-exception-mappings> -->
+
+		<action name="login" class="org.mini.web.action.LoginAction">
+			<result name="success">/pages/login/login.jsp</result>
+		</action>
+
+		<action name="user_list2" class="org.mini.web.system.action.UserAction">
+			<result name="success">/pages/user/index.jsp</result>
+		</action>
+
+		<action name="user_list" class="org.mini.web.system.action.UserAction"
+			method="list">
+			<result name="success">/pages/user/list.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="user_list4" class="org.mini.web.system.action.UserAction"
+			method="list">
+			<result name="success">/pages/user/ansyc_list.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="user_list_json" class="org.mini.web.system.action.UserAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">user,id,actionErrors,fieldErrors,actionMessages,ajax,errorMessages,locale,texts</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="user_view" class="org.mini.web.system.action.UserAction"
+			method="view">
+			<result name="success">/pages/user/view.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="user_delete" class="org.mini.web.system.action.UserAction"
+			method="delete">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">list,user,id</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="user_save" class="org.mini.web.system.action.UserAction"
+			method="save">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">list,id,user</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="role_list" class="org.mini.web.system.action.RoleAction"
+			method="list">
+			<result name="success">/pages/role/role_list.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="role_list_json" class="org.mini.web.system.action.RoleAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">id,role,actionErrors,fieldErrors,actionMessages,ajax,errorMessages,locale,texts</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="role_view" class="org.mini.web.system.action.RoleAction"
+			method="view">
+			<result name="success">/pages/role/role_view.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="role_delete" class="org.mini.web.system.action.RoleAction"
+			method="delete">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">roleList,role,id</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="role_save" class="org.mini.web.system.action.RoleAction"
+			method="save">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">roleList,id,role</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+		
+		<action name="system_info_list" class="org.mini.web.system.action.SystemInfoAction"
+			method="list">
+			<result name="success">/pages/systemInfo/system_info_list.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="system_info_list_json" class="org.mini.web.system.action.SystemInfoAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">id,systemInfo,actionErrors,fieldErrors,actionMessages,ajax,errorMessages,locale,texts</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="system_info_view" class="org.mini.web.system.action.SystemInfoAction"
+			method="view">
+			<result name="success">/pages/systemInfo/system_info_view.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="system_info_delete" class="org.mini.web.system.action.SystemInfoAction"
+			method="delete">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">list,systemInfo,id</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+		<action name="system_info_save" class="org.mini.web.system.action.SystemInfoAction"
+			method="save">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeProperties">list,id,systemInfo</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="exception" />
+		</action>
+
+
+		<!-- <action name="user_*" class="org.mini.web.action.UserAction" method="{1}"> 
+			<result name="success">/pages/user/{1}.jsp</result> <interceptor-ref name="defaultStack" 
+			/> <interceptor-ref name="exception" /> </action> -->
+
+		<action name="do_login" class="org.mini.web.action.LoginAction"
+			method="login">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">${actionErrors},${fieldErrors}</param>
+				<param name="excludeParams">${username},${password}</param>
+			</result>
+		</action>
+
+		<action name="*" class="org.mini.web.action.ErrorAction">
+			<result>/pages/demo/index.jsp</result>
+		</action>
+	</package>
 </struts>
