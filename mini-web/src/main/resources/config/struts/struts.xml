@@ -57,13 +57,13 @@
 		</action>
 
 		<action name="user_list4" class="org.mini.web.system.action.UserAction"
-			method="list">
+			>
 			<result name="success">/pages/user/ansyc_list.jsp</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="exception" />
 		</action>
 
-		<action name="user_list_json" class="org.mini.web.system.action.UserAction">
+		<action name="user_list_json" class="org.mini.web.system.action.UserAction" method="list">
 			<result name="success" type="json">
 				<param name="ignoreHierarchy">false</param>
 				<param name="excludeProperties">user,id,actionErrors,fieldErrors,actionMessages,ajax,errorMessages,locale,texts</param>

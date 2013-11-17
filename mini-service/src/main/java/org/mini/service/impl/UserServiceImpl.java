@@ -61,4 +61,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.get(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public User get(String userName, String empNo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

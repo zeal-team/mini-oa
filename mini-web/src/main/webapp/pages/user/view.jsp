@@ -24,11 +24,12 @@ function save() {
 	$.validity.setup({ outputMode:'custom' });
 
 	function valid() {
+		
 		$.validity.start();
 		$("#userName").require("用户名必须输入！");
 		$("#password").require("密码必须输入！");
 		var result = $.validity.end();
-		alert(result.messages);
+		//alert(result.messages);
 		return result.valid;
 	}
 
@@ -39,6 +40,7 @@ function save() {
 	//前面还有验证的代码
 
 	var user = getInput("user", true);
+	alert(user);
 	top.showBox();
 	$.ajax({
 		url : "user_save",
@@ -48,6 +50,7 @@ function save() {
 			if(result && result.isSuccess)
 			{
 				top.showBox("提交成功", MSG_TYPE.SUCCESS, parent.search);
+				top.closeWindow();
 			} else if(result) {
 				if(result.message) {
 					top.showBox(result.message, MSG_TYPE.ERROR);

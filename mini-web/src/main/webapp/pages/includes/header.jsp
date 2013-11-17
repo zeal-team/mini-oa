@@ -9,3 +9,5 @@
 <script src="<%=request.getContextPath() %>/scripts/common.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/scripts/global.js" type="text/javascript"></script>
 <link href="<%=request.getContextPath() %>/css/jqgrid/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+<script src="<%=request.getContextPath() %>/scripts/jquery.validity.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/scripts/jquery.validity.custom.js" type="text/javascript"></script>

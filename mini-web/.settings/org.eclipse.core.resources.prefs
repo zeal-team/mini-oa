@@ -3,5 +3,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/config/hibernate/hibernate.properties=UTF-8
 encoding//src/main/webapp/WEB-INF=UTF-8
+encoding//src/main/webapp/css/themes/colorbox.css=UTF-8
+encoding//src/main/webapp/css/themes/messagebox.css=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

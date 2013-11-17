@@ -17,4 +17,6 @@ public interface UserService {
 	List<User> search(User user) throws Exception;
 	User get(long id) throws Exception;
 	void delete(long id) throws Exception;
+	User get(String userName, String empNo) throws Exception;
+	
 }
